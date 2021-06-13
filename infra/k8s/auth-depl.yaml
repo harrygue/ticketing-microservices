@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   name: auth-depl
 spec:
-  replicas: 1
-  selector:
+  replicas: 1 # tells how many pods to create
+  selector: # tells deployment how to find the pods it's going to create'
     matchLabels:
       app: auth
   template:
@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: auth
-          image: us.gcr.io/ticketing-dev-316319/auth
+          # image: us.gcr.io/ticketing-dev-316319/auth
+          image: hg070817/auth
 ---
 apiVersion: v1
 kind: Service
