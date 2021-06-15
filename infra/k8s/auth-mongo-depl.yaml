@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-mongo-depl
+spec:
+  replicas: 1
+  selector: # defines how the pod is found
+    matchLabels:
+      app: auth-mongo
+  template: # defines the pod
+    metadata:
+      labels:
+        app: auth-mongo
+    spec:
+      containers:
+        - name: auth-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-mongo-srv
+spec:
+  selector: # telling the service which pods get access to
+    app: auth-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017 # default port on mongo
+      targetPort: 27017
