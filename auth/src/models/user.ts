@@ -32,7 +32,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-})
+},{
+  // TS implementation to overwrite JSON.stringify
+  // normally this is a view representation => MVC should be separated out
+  toJSON: {
+    transform(doc,ret){
+      // remapping id property
+      ret.id = ret._id;
+      delete ret._id,
+      delete ret.password; // remove password property in JSON representation
+      delete ret.__v; // remove Mongo version key
+  }
+}})
 
 // middleware function implemented in mongoose
 // will be executed everytime if we try to query a user from the db

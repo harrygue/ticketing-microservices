@@ -16,6 +16,12 @@ spec:
         - name: auth
           # image: us.gcr.io/ticketing-dev-316319/auth
           image: hg070817/auth
+          env:
+            - name: jwt # Stephen used JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: jwt # Stephen used JWT_KEY
 ---
 apiVersion: v1
 kind: Service
