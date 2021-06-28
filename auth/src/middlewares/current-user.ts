@@ -26,7 +26,7 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
   try {
     // process.env.jwt already checked and defined in index.ts start function!
     // ? after req.session - necessary in my case, not in SG's case !!!
-    const payload = jwt.verify(req.session?.jwt,process.env.jwt!) as UserPayload;
+    const payload = jwt.verify(req.session.jwt,process.env.jwt!) as UserPayload;
     req.currentUser = payload;
 
   } catch(err){

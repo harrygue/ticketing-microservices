@@ -7,6 +7,7 @@ import { currentUser } from '../middlewares/current-user'
 const router = express.Router()
 
 // middleware: currentUser, requireAuth
+// Stephen deleted requireAuth middleware in video 187 quite at the end, now idea why ? I leave it as is !
 router.get('/api/users/currentuser',currentUser,requireAuth,(req,res) => {
   
   res.send({currentUser: req.currentUser || null});

@@ -5,15 +5,28 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
+  # tls:
+  #   - secretName: tls-secret1
+  #     hosts:
+  #       - ticketing.dev
   rules:
-    - host: ticketing.com
+    - host: ticketing.dev
       http:
         paths:
+          # paths need to be ordered according to specificity
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
               service:
                 name: auth-srv
+                port:
+                  number: 3001
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
                 port:
                   number: 3000

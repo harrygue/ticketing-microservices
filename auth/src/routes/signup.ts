@@ -8,7 +8,7 @@ import { BadRequestError } from '../errors/bad-request-error'
 
 const router = express.Router()
 
-router.get('/api/users/signup',[
+router.post('/api/users/signup',[
     body('email')
       .isEmail()
       .withMessage('Email must be valid'),
@@ -46,7 +46,7 @@ router.get('/api/users/signup',[
     req.session = {
       jwt: userJwt  // Typescript style: write out the object rather than chaining
     }
-
+    console.log('USER: ',user)
     res.status(201).send(user);
 })
 

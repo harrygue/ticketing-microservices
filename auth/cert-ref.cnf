@@ -1,0 +1,17 @@
+[req]
+distinguished_name = req_ticketing
+x509_extensions = v3_req
+prompt = no
+[req_ticketing]
+C = CH
+ST = AG
+L = Zurich
+O = harrygue
+OU = MyDivision
+CN = ticketing.dev
+[v3_req]
+keyUsage = critical, digitalSignature, keyAgreement
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = ticketing.dev
