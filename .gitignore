@@ -1,0 +1,6 @@
+/client/node_modules
+/auth/node_modules
+/auth/ticketing.key
+/auth/ticketing.crt
+/common
+node_modules

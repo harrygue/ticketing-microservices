@@ -1,8 +1,8 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import { requireAuth } from '../middlewares/require-auth'
+import { requireAuth } from '@harrygueorg/common'
 
-import { currentUser } from '../middlewares/current-user'
+import { currentUser } from '@harrygueorg/common'
 
 const router = express.Router()
 
