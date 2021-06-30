@@ -17,7 +17,7 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true  
     })
-    console.log('CONNECTED TO MONGODB auth')
+    console.log('CONNECTED TO MONGODB tickets')
   } catch(err){
     console.log(err)
   }
