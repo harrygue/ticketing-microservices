@@ -7,12 +7,12 @@ const start = async () => {
     throw new Error('jwt must be defined!')
   }
 
-  if (!process.env.MONGO_URI) {
+  if (!process.env.TICKETS_MONGO_URI) {
     throw new Error('MONGO_URI must be defined!')
   }
 
   try {
-    await mongoose.connect(process.env.MONGO_URI,{
+    await mongoose.connect(process.env.TICKETS_MONGO_URI,{
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true  

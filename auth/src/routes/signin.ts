@@ -50,9 +50,9 @@ router.post('/api/users/signin',[
 
     // Store it on session object
     req.session = {
-      jwt: userJwt  // Typescript style: write out the object rather than chaining
+      jwt: userJwt,  // Typescript style: write out the object rather than chaining
+      test:'test'
     }
-
     res.status(200).send(existingUser);
 })
 

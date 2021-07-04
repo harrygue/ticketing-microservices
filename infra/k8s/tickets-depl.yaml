@@ -17,7 +17,7 @@ spec:
           # image: us.gcr.io/ticketing-dev-316319/tickets
           image: hg070817/tickets
           env:
-            - name: MONGO_URI
+            - name: TICKETS_MONGO_URI
               value: "mongodb://tickets-mongo-srv:27017/tickets"
             - name: jwt # Stephen used JWT_KEY
               valueFrom:

@@ -9,6 +9,9 @@ import cookieSession from 'cookie-session'
 
 import { errorHandler,NotFoundError} from '@harrygueorg/common'
 import { createTicketRouter } from './routes/new'
+import { showTicketRouter } from './routes/show'
+import { indexTicketsRouter } from './routes';
+import { updateTicketRouter} from './routes/update'
 
 const app = express()
 app.set('trust proxy',true) // traffic is proxied through ingress-nginx
@@ -36,6 +39,10 @@ app.use(
 )
 
 app.use(createTicketRouter)
+app.use(showTicketRouter)
+app.use(indexTicketsRouter)
+app.use(updateTicketRouter)
+
 
 // asynchronous Error Handling
 app.all('*', async ()=> {
