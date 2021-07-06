@@ -4,3 +4,4 @@
 /auth/ticketing.crt
 /common
 node_modules
+/nats-test/node_modules
