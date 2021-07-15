@@ -22,8 +22,9 @@ router.post('/api/tickets',currentUser,requireAuth,[
 async (req:Request,res:Response) => {
   const { title, price } = req.body;
   console.log('CURRENT USER: ')
-  console.log(title, price)
+  
   req.currentUser && console.log(req.currentUser)
+  console.log(title, price)
   const ticket = Ticket.build({
     title,price,
     userId: req.currentUser!.id
