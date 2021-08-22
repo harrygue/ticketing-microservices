@@ -5,9 +5,12 @@ export const natsWrapper = {
     //   callback();
     // }
      // create a mock
-    publish: jest.fn().mockImplementation(
+    publish: jest
+      .fn()
+      .mockImplementation(
       (subject: string, data: string, callback: () => void) => {
           callback();
-      })
+      }
+    )
   }
 }

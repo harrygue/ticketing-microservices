@@ -1,16 +1,17 @@
 import express, {Request, Response } from 'express'
 import { body } from 'express-validator'
-import { requireAuth,validatateRequest,currentUser } from '@harrygueorg/common';
-// import { requireAuth } from '../middlewares/require-auth'; //temp
-// import { currentUser } from '../middlewares/current-user'; //temp
-// import { validatateRequest } from '../middlewares/validate-request'; // temp
+import { requireAuth,validateRequest,currentUser } from '@harrygueorg/common';
 import { Ticket } from '../models/ticket';
 import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
-router.post('/api/tickets',currentUser,requireAuth,[
+router.post(
+  '/api/tickets',
+  currentUser,
+  requireAuth,
+  [
   body('title')
     .not()
     .isEmpty()
@@ -18,15 +19,17 @@ router.post('/api/tickets',currentUser,requireAuth,[
   body('price')
     .isFloat({ gt: 0}) // greater than
     .withMessage('Price must be greater than 0')
-],validatateRequest, 
+],
+validateRequest, 
 async (req:Request,res:Response) => {
   const { title, price } = req.body;
+
   console.log('CURRENT USER: ')
-  
   req.currentUser && console.log(req.currentUser)
   console.log(title, price)
   const ticket = Ticket.build({
-    title,price,
+    title,
+    price,
     userId: req.currentUser!.id
   })
   await ticket.save();
@@ -37,7 +40,8 @@ async (req:Request,res:Response) => {
     id: ticket.id,
     title: ticket.title,
     price: ticket.price,
-    userId:ticket.userId
+    userId:ticket.userId,
+    version: ticket.version,
   })
 
   res.status(201).send(ticket);

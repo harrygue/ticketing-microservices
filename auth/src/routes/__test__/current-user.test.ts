@@ -19,7 +19,7 @@ it('responds with null if not authenicated', async () => {
   const response = await request(app)
     .get('/api/users/currentuser')
     .send()
-    .expect(200)
+    .expect(401)
 
   expect(response.body.currentUser).toEqual(null)
 })

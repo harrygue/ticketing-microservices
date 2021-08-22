@@ -18,9 +18,12 @@ let mongo: any;
 
 // hook, which runs before all tests
 beforeAll(async () => {
-  process.env.jwt = 'asdfasdf'
+  process.env.jwt = 'asdfasdf';
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
+  
   await mongoose.connect(mongoUri,{
     useNewUrlParser: true,
     useUnifiedTopology: true

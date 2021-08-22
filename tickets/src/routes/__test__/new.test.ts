@@ -4,7 +4,7 @@ import { Ticket } from '../../models/ticket'
 // actually the mock is called
 import { natsWrapper} from '../../nats-wrapper';
 
-it('has a route handler listening to /api/tickets for post requests', 
+it('1) has a route handler listening to /api/tickets for post requests', 
 async () => {
   const response = await request(app)
     .post('/api/tickets').send({})
@@ -13,25 +13,25 @@ async () => {
     .not.toEqual(404);
 })
 
-it('can only be accessed if the user is signed in', async () => {
+it('2) can only be accessed if the user is signed in', async () => {
   const response = await request(app)
     .post('/api/tickets')
-    .set('Cookie',global.signin())
+    // .set('Cookie',global.signin())
     .send({})
     .expect(401)
 })
 
-it('returns a status other than 401 if the user is signed in', async () => {
+it('3) returns a status other than 401 if the user is signed in', async () => {
   const response = await request(app)
     .post('/api/tickets')
     .set('Cookie',global.signin())
     .send({})
 
-    console.log(response.status)
+    console.log('RESPONSE STATUS::: ',response.status)
     expect(response.status).not.toEqual(401);
 })
 
-it('returns an error if an invalid title is provided', async () => {
+it('4) returns an error if an invalid title is provided', async () => {
   await request(app)
     .post('/api/tickets')
     .set('Cookie',global.signin())
@@ -50,7 +50,7 @@ it('returns an error if an invalid title is provided', async () => {
     .expect(400)
 })
 
-it('returns an error if an invalid price is provided', async () => {
+it('5) returns an error if an invalid price is provided', async () => {
   await request(app)
   .post('/api/tickets')
   .set('Cookie',global.signin())
@@ -70,7 +70,7 @@ it('returns an error if an invalid price is provided', async () => {
     .expect(400)
 })
 
-it('creates a ticket with valid parameters', async () => {
+it('6) creates a ticket with valid parameters', async () => {
   // add in a check to make sure a ticket was saved to db
   let tickets = await Ticket.find({})
   expect(tickets.length).toEqual(0)
@@ -90,7 +90,7 @@ it('creates a ticket with valid parameters', async () => {
   expect(tickets[0].title).toEqual('validTitle')
 })
 
-it('publishes an event',async () => {
+it('7) publishes an event',async () => {
   await request(app)
   .post('/api/tickets')
   .set('Cookie',global.signin())

@@ -20,7 +20,9 @@ let mongo: any;
 
 // hook, which runs before all tests
 beforeAll(async () => {
-  process.env.jwt = 'asdfasdf'
+  process.env.jwt = 'asdfasdf';
+  // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
   await mongoose.connect(mongoUri,{
@@ -48,7 +50,7 @@ global.signin = () => {
   // build JWT payload. {id, email}
   const payload = {
     id: new mongoose.Types.ObjectId().toHexString(),
-    email: 'test@test.com'
+    email: 'h.guentner@test.com'
   }
   // Create the JWT in my case its jwt instead of JWT_KEY
   const token = jwt.sign(payload, process.env.jwt!)

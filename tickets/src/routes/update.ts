@@ -2,9 +2,10 @@ import express, {Request, Response } from 'express'
 import { body } from 'express-validator'
 import { 
   requireAuth,
-  validatateRequest,
+  validateRequest,
   NotFoundError,
   NotAuthorizedError,
+  BadRequestError,
   currentUser
  } from '@harrygueorg/common';
 import { Ticket } from '../models/ticket';
@@ -15,7 +16,8 @@ const router = express.Router()
 
 router.put('/api/tickets/:id',
   currentUser,
-  requireAuth,[
+  requireAuth,
+  [
     body('title')
       .not()
       .isEmpty()
@@ -24,11 +26,17 @@ router.put('/api/tickets/:id',
       .isFloat({gt: 0})
       .withMessage('Price must be provided and be greater than 0')
   ],
-  validatateRequest,
+  validateRequest,
   async (req:Request,res:Response) => {
+    console.log('REQ.PARAMS.ID: ',req.params.id)
     const ticket = await Ticket.findById(req.params.id)
     if (!ticket) {
       throw new NotFoundError();
+    }
+
+    // check if ticket is reserved
+    if (ticket.orderId) {
+      throw new BadRequestError('Cannot edit a reserved ticket');
     }
 
     if (ticket.userId !== req.currentUser!.id) {
@@ -47,10 +55,12 @@ router.put('/api/tickets/:id',
       id: ticket.id,
       title: ticket.title,
       price: ticket.price,
-      userId:ticket.userId
+      userId:ticket.userId,
+      version: ticket.version,
     })
 
     res.send(ticket);
+
   }
 )
 

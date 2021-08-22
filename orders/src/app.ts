@@ -7,7 +7,7 @@ import cors from 'cors'
 
 import cookieSession from 'cookie-session'
 
-import { errorHandler,NotFoundError} from '@harrygueorg/common'
+import { errorHandler,NotFoundError,currentUser} from '@harrygueorg/common'
 import { newOrderRouter } from './routes/new'
 import { showOrderRouter } from './routes/show'
 import { indexOrderRouter } from './routes';
@@ -37,6 +37,8 @@ app.use(
     // sets the env variable to 'test'
   })
 )
+
+app.use(currentUser)
 
 app.use(newOrderRouter)
 app.use(showOrderRouter)

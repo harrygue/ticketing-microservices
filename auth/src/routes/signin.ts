@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import { Password } from '../services/password';
 import { User } from '../models/user';
-import { validatateRequest,BadRequestError } from '@harrygueorg/common'
+import { validateRequest,BadRequestError } from '@harrygueorg/common'
 
 const router = express.Router()
 
@@ -17,7 +17,7 @@ router.post('/api/users/signin',[
       .notEmpty()
       .withMessage('You must supply a password!')
   ],
-  validatateRequest,
+  validateRequest,
   async (req:Request,res:Response) => {
     // error handling stuff removed because we use validateResult middleware
     const { email, password } = req.body;

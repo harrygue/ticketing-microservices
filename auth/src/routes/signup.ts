@@ -2,7 +2,7 @@ import express,{ Request,Response } from 'express'
 import { body } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
-import { validatateRequest,BadRequestError } from '@harrygueorg/common'
+import { validateRequest,BadRequestError } from '@harrygueorg/common'
 import { User } from '../models/user'
 
 const router = express.Router()
@@ -16,7 +16,7 @@ router.post('/api/users/signup',[
       .isLength({min: 4, max: 20})
       .withMessage('Password must be between 4 and 20 characters!')
   ],
-  validatateRequest,
+  validateRequest,
   async (req:Request,res:Response) => {
     // error handling stuff removed because we use validateResult middleware
     
