@@ -19,7 +19,7 @@ const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
 router.post(
   '/api/orders',
-  // requireAuth,
+  requireAuth,
   [
     body('ticketId')
       .not()
@@ -33,6 +33,9 @@ router.post(
 
     // Find the ticket the user is trying to order in the database
     const ticket = await Ticket.findById(ticketId);
+    const test = await Ticket.find({})
+    // console.log('ALL TICKETS: ',test)
+
     if (!ticket) {
       throw new NotFoundError();
     }

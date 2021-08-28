@@ -49,10 +49,12 @@ router.post('/api/users/signin',[
     // Typescript complains but at runtime we did the check already in index.ts
 
     // Store it on session object
+    // @ts-ignore
     req.session = {
       jwt: userJwt,  // Typescript style: write out the object rather than chaining
-      test:'test'
     }
+
+    console.log(process.env.jwt!,req.session?.jwt)
     res.status(200).send(existingUser);
 })
 
